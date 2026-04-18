@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Ticket Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #0f172a;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    button {
+      padding: 14px 22px;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .ticket-list {
+      list-style: none;
+    }
+
+    .ticket-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+    }
+
+    .ticket-text {
+      font-size: 16px;
+      color: #111827;
+      word-break: break-word;
+    }
+
+    .status {
+      background: #16a34a;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #94a3b8;
+      padding: 18px 0 6px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .ticket-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .status {
+        align-self: flex-start;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>IT Ticket Tracker</h1>
+    <p class="subtitle">Log and track basic IT support issues</p>
+
+    <div class="form-group">
+      <input
+        type="text"
+        id="ticketInput"
+        placeholder="Enter IT issue, for example: Printer is broken"
+      />
+      <button onclick="addTicket()">Submit Ticket</button>
+    </div>
+
+    <ul id="ticketList" class="ticket-list"></ul>
+    <p id="emptyMessage" class="empty-message">No tickets submitted yet.</p>
+  </div>
+
+  <script>
+    function addTicket() {
+      const ticketInput = document.getElementById("ticketInput");
+      const ticketList = document.getElementById("ticketList");
+      const emptyMessage = document.getElementById("emptyMessage");
+
+      const issueText = ticketInput.value.trim();
+
+      if (issueText === "") {
+        alert("Please enter an IT issue.");
+        return;
+      }
+
+      const listItem = document.createElement("li");
+      listItem.className = "ticket-item";
+
+      const ticketText = document.createElement("span");
+      ticketText.className = "ticket-text";
+      ticketText.textContent = issueText;
+
+      const statusBadge = document.createElement("span");
+      statusBadge.className = "status";
+      statusBadge.textContent = "Pending";
+
+      listItem.appendChild(ticketText);
+      listItem.appendChild(statusBadge);
+      ticketList.appendChild(listItem);
+
+      ticketInput.value = "";
+      emptyMessage.style.display = "none";
+    }
+  </script>
+</body>
+</html>
